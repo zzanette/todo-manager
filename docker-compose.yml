@@ -21,7 +21,7 @@ services:
         environment:
             MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: todo-manager
-            
+
     front-end:
         image: nginx:1.13.2
         ports:
