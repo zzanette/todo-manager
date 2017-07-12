@@ -60,7 +60,7 @@
       });
     };
 
-    $scope.editProperty = function(oldPriority) {
+    $scope.editPriority = function(oldPriority) {
         $mdDialog.show({
           controller: ['$scope', function ($scope) {
                   $scope.title = 'Editar';

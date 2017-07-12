@@ -13,7 +13,7 @@
           </thead>
           <tbody>
           <tr ng-repeat="data in priorities track by $index">
-                  <td data-title="Nome"><a ng-click="editProperty(data)" style="cursor: pointer">{{data.name}} </a></td>
+                  <td data-title="Nome"><a ng-click="editPriority(data)" style="cursor: pointer">{{data.name}} </a></td>
                   <td data-title="Importancia">{{data.importance}}</td>
              
               <td data-title="Acoes">
@@ -54,8 +54,8 @@
                   <label for="name">Nome da prioridade</label>
                 </div>
                 <div class="input-field col s6">
-                  <input id="order" type="number" class="validate active" step="1" min="0"  ng-model="priority.order"> 
-                  <label for="order">Grau de importiancia</label>
+                  <input id="importance" type="number" class="validate active" step="1" min="0"  ng-model="priority.importance"> 
+                  <label for="importance">Grau de importiancia</label>
                 </div>
                  <div class="input-field col s1 ">
 
