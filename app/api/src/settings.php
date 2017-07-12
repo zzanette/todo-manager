@@ -21,7 +21,7 @@ return [
             'secheduler-mysql' => [
                 'driver' => 'mysql',
                 'host' => 'db-mysql',
-                'database' => 'scheduler',
+                'database' => 'todo-manager',
                 'username' => 'root',
                 'password' => 'root',
                 'charset'   => 'utf8',

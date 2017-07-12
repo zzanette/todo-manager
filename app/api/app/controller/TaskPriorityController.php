@@ -8,11 +8,11 @@ class TaskPriorityController {
 
 
 
-	public function insert($name, $order) {
+	public function insert($name, $importance) {
 
 		$priority = new TaskPriority();
 		$priority->name = $name;
-		$priority->order = $order;
+		$priority->importance = $importance;
 
 		return $priority->save();
 	}
@@ -26,8 +26,8 @@ class TaskPriorityController {
 		return TaskPriority::where('id', $id)->get(); 
 	}
 
-	public function update($id, $name, $order){
-		return TaskPriority::where('id', $id)->update(['name' => $name, 'order' => $order]);
+	public function update($id, $name, $importance){
+		return TaskPriority::where('id', $id)->update(['name' => $name, 'importance' => $importance]);
 	}
 
 	// TODO: Limit of return and do pagination
@@ -36,10 +36,10 @@ class TaskPriorityController {
 		$data = array ();
 
 		foreach ($priorities as $key => $property) {
-			if(empty($property['order'])){
-				$property['order'] = 0;
+			if(empty($property['importance'])){
+				$property['importance'] = 0;
 			}
-			array_push($data, array('id' => $property['id'], 'name' => $property['name'], 'order' => $property['order']) );	
+			array_push($data, array('id' => $property['id'], 'name' => $property['name'], 'importance' => $property['importance']) );	
 		}
 
 		return $data;
