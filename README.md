@@ -1,18 +1,15 @@
 # TODO-manager
 
-TODO-manager is a sample dockerized app to manage your TODOs things. Here you can define a priority for yours TODO and manage it like you want =D
-#
+TODO-manager is a sample dockerized app to manage yours TODOs things and define a priority for it =D
+
 # Features
   - Order your TODOs
   - Define and group yours TODOs a priority
   - CRUD priorities and TODOs
 
-
-#
 # Installation
-#
-#
-#### Pre requirements
+
+### Pre requirements
 ---------------------------------------
 To able to run the app You will need install the docker and docker-compose.
  - Docker -  ->   https://docs.docker.com/engine/installation/ 
