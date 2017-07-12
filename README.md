@@ -12,8 +12,9 @@ TODO-manager is a sample dockerized app to manage yours TODOs things and define 
 ### Pre requirements
 ---------------------------------------
 To able to run the app You will need install the docker and docker-compose.
- - Docker -  ->   https://docs.docker.com/engine/installation/ 
+ - Docker  -->   https://docs.docker.com/engine/installation/ 
  - Docker-compose  -->   https://docs.docker.com/compose/install/
+ - Composer  --> https://getcomposer.org
 ### Ports
 --------------------------------------
  - Port 8080 --> Run the Front-end
@@ -24,7 +25,7 @@ To able to run the app You will need install the docker and docker-compose.
 -----------------------------------
 After all pre requirements, just run the follow commands below:
 ```sh
-$ git clone https://github.com/zzanette/...
+$ git clone https://github.com/zzanette/todo-manager.git
 $ cd todo-manager
 $ docker-compose up -d
 ```
@@ -42,16 +43,22 @@ Or fell free to connect with database with IDE and run the file in
 - User: root
 - Password: root
 
+### Api
+---------------------------------------
+The Api is running in PHP with the Micro Framework [Slim Framework](https://www.slimframework.com/docs/). Fell free to explore his struture in folder:
+- ./todo-manager/app/api
+To install the dependencies of the API go to this folder and execute the commands below:
+```sh
+$ composer install
+```
+
 ### Front-end
 -------------------------------------
 The front-end was maked with [angularJs](https://angularjs.org/) using the [Angular Material](https://github.com/angular/material) template. His location is on:
 - ./todo-manager/app/angular-cli
 
 
-### Api
----------------------------------------
-The Api is running in PHP with the Micro Framework [Slim Framework](https://www.slimframework.com/docs/). Fell free to explore his struture in folder:
-- ./todo-manager/app/api
+
 
 
 
