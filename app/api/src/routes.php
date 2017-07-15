@@ -52,49 +52,48 @@ $app->group('/api/v1/priority', function () use ($app) {
         return helper::jsonResponse($response, $priorityController->getAll());
 
     })->setName('get-all-priorities');
-
 });
 
 
 $app->group('/api/v1/task', function () use ($app) {
-
-    $priorityController = $app->getContainer()['PriorityController'];
+    
+    $taskController = $app->getContainer()['TaskController'];
 
     // Route to insert a task
-    $this->post('/insert', function ($request, $response, $args) use ($priorityController){   
+    $this->post('/insert', function ($request, $response, $args) use ($taskController){   
         $data = $request->getParsedBody();
-        $newTask = $priorityController->insert($data['name'], $data['description'], $data['id_priority']);
+        $newTask = $taskController->insert($data['name'], $data['description'], $data['priority']['id']);
 
         if($newPriority) {
-            return helper::jsonResponse($response, array('status' => true, 'data' => $newTask, 'msg' => 'Priodade salva com sucesso!'));
+            return helper::jsonResponse($response, array('status' => true, 'data' => $newTask, 'msg' => 'Tarefa salva com sucesso!'));
         }else {
-            return helper::jsonResponse($response, array('status' => false, 'msg' => 'Não foi possível salvar a prioridade!'));
+            return helper::jsonResponse($response, array('status' => false, 'msg' => 'Não foi possível salvar a Tarefa!'));
         }
-    })->setName('insert-priority');
+    })->setName('insert-task');
 
-    // Route to update a priority by id
-    $this->put('/update', function ($request, $response, $args) use ($priorityController){   
+    // Route to update a task by id
+    $this->put('/update', function ($request, $response, $args) use ($taskController){   
         $data = $request->getParsedBody();
-        return helper::jsonResponse($response, array('status' => true, 'data' => $priorityController->update($data['id'], $data['name'], $data['order']), 'msg' => 'Prioridade atualizada.') );
+        return helper::jsonResponse($response, array('status' => true, 'data' => $taskController->update($data['id'], $data['name'], $data['description'], $data['priority']['id']), 'msg' => 'Prioridade atualizada.') );
 
-    })->setName('update-priority');
+    })->setName('update-task');
 
-    // Route to delete a priority by id
-    $this->delete('/delete/{id:[0-9]+}', function ($request, $response, $args) use ($priorityController){   
-        return helper::jsonResponse($response, array('status' => true, 'data' => $priorityController->delete($args['id']), 'msg' => 'Prioridade deletada.') );
+    // Route to delete a task by id
+    $this->delete('/delete/{id:[0-9]+}', function ($request, $response, $args) use ($taskController){   
+        return helper::jsonResponse($response, array('status' => true, 'data' => $taskController->delete($args['id']), 'msg' => 'Prioridade deletada.') );
 
-    })->setName('delete-priority');
+    })->setName('delete-task');
+
+    // Route to get All task
+    $this->get('/get/{id:[0-9]+}', function ($request, $response, $args) use ($taskController){   
+        return helper::jsonResponse($response, $taskController->get($args['id']));
+
+    })->setName('get-task');
 
     // Route to get All priority
-    $this->get('/get/{id:[0-9]+}', function ($request, $response, $args) use ($priorityController){   
-        return helper::jsonResponse($response, $priorityController->get($args['id']));
+    $this->get('/get', function ($request, $response, $args) use ($taskController){   
+        return helper::jsonResponse($response, $taskController->getAll());
 
-    })->setName('get-priority');
-
-    // Route to get All priority
-    $this->get('/get', function ($request, $response, $args) use ($priorityController){   
-        return helper::jsonResponse($response, $priorityController->getAll());
-
-    })->setName('get-all-priorities');
+    })->setName('get-all-tasks');
 
 });
