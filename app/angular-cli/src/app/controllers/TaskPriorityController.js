@@ -41,6 +41,7 @@
                   $scope.title = 'Nova';
 
                   $scope.savePriority = function(priority) {
+
                     $mdDialog.hide(priority);
                   };
                   $scope.cancel = function() {
@@ -54,7 +55,7 @@
           clickOutsideToClose:true,
           locals: {parent: $scope},
         })
-       .then(function(priority) {  
+       .then(function(priority) {
          savePriority(priority);
          
       });

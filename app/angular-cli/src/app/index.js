@@ -25,7 +25,7 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngResource','ngCookies',
       .state('home.task', {
         url: '/task',
         controller: 'TaskController',
-        controllerAs: 'TaskController',
+        controllerAs: 'taskController',
         templateUrl: 'app/views/task.html',
         data: {
           title: 'Lista de tarefas'

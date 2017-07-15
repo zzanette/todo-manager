@@ -9,10 +9,9 @@
  	function TaskPriorityFactory ($resource){
  		var baseUrl = "http://localhost:9001/api/v1/priority/";
 
-     	return $resource(baseUrl + "get/:id", {
-				id: "@id"
-			}, 
+     	return $resource(baseUrl + "get/:id", { id: "@id" }, 
 			{
+
 				update: {
 					url: baseUrl + "update/",
 					method: "PUT"

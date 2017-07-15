@@ -1,44 +1,87 @@
 <h1>Adicionar tarefas</h1>
 
 <div class="row">
-
-  <div class="table-responsive-vertical " ng-if="!(priorities === undefined) && !(priorities.length == 0)">
-      <table id="table" class="table table-hover table-bordered">
+<div class="col 6">
+  <h5>Filtrar por:</h5>
+  <label class="col s3">Nome <input ng-model="search.name"></label>
+  <label class="col s3">Descrição <input ng-model="search.description"></label>
+  <label class="col s3">Prioridade<input ng-model="search.priority.name"></label>
+  <label class="col s3">Importancia <input ng-model="search.priority.importance"></label>
+</div>
+<div class="row">
+  <div class="table-responsive-vertical " ng-if="!(tasks === undefined) && !(tasks.length == 0)">
+        <table id="table" class="table table-hover table-bordered">
           <thead>
           <tr>
-              <th style="width: 33%;">Nome</th>
-              <th style="width: 33%;">Descrição</th>
-              <th style="width: 33%;">Prioridade</th>
-              <th style="width: 33%;">Excluir</th>
+              <th style="font-size: 20px; width: 33%;"> 
+                <a href="#" ng-click="orderByField='name'; reverseSort = !reverseSort">
+                  Nome
+                  <span ng-show="orderByField == 'name'">
+                    <span ng-show="!reverseSort">^</span>
+                    <span ng-show="reverseSort">v</span>
+                  </span>
+                </a>
+              </th>
+              <th style="font-size: 20px; width: 33%;">
+                <a href="#" ng-click="orderByField='description'; reverseSort = !reverseSort">
+                  Descrição
+                  <span ng-show="orderByField == 'description'">
+                    <span ng-show="!reverseSort">^</span>
+                    <span ng-show="reverseSort">v</span>
+                  </span>
+                </a>
+              </th>
+              <th style="font-size: 20px; width: 33%;">
+                <a href="#" ng-click="orderByField='priority.name'; reverseSort = !reverseSort">
+                  Prioridade
+                   <span ng-show="orderByField == 'priority.name'">
+                      <span ng-show="!reverseSort">^</span>
+                      <span ng-show="reverseSort">v</span>
+                    </span>
+                </a>
+              </th>
+              <th style="font-size: 20px; width: 33%;">
+                <a href="#" ng-click="orderByField='priority.importance'; reverseSort = !reverseSort">
+                  Importância
+                  <span ng-show="orderByField == 'priority.importance'">
+                      <span ng-show="!reverseSort">^</span>
+                      <span ng-show="reverseSort">v</span>
+                    </span>
+                </a>
+              </th>
+              <th style="font-size: 20px; width: 33%;">Excluir</th>
           </tr>
           </thead>
           <tbody>
-          <tr ng-repeat="data in priorities track by $index">
-                  <td data-title="Nome"><a ng-click="editProperty(data)" style="cursor: pointer">{{data.name}} </a></td>
-                  <td data-title="Importancia">{{data.description}}</td>
-                  <td data-title="Importancia">{{data.priority}}</td>
+          <tr ng-repeat="task in tasks | orderBy:orderByField:reverseSort | filter:search">
+                  <td data-title="Nome"><a ng-click="editTask(task)" style="cursor: pointer"> {{ task.name }} </a></td>
+                  <td data-title="Descrição"> {{ task.description}} </td>
+                  <td data-title="Prioridade" > {{ task.priority.name }}</td>
+                  <td data-title="grau" > {{ task.priority.importance }}</td>
              
               <td data-title="Acoes">
-                 <a class="btn-floating btn-large waves-effect waves-light red" ng-click="deletePriority(data)"><i class="material-icons">delete</i></a>
+                 <a class="btn-floating btn-large waves-effect waves-light red" ng-click="deleteTask(task)"><i class="material-icons">delete</i></a>
               </td>
           </tr>
           </tbody>
       </table>
   </div>
-  <div ng-if="(priorities === undefined) || (priorities.length == 0)">
+  <div class="col 6" ng-if="(tasks == undefined) || (tasks.length == 0)">
     <h4>Não exitem tarefas cadastradas = (</h4>
   </div>
+
 </div>
 <div class="fixed-action-btn" style="bottom: 45px; right: 100px;">
-          <a class="btn-floating btn-large waves-effect waves-light green" ng-click="addNewPriority()"><i class="material-icons">add</i></a>
+          <a class="btn-floating btn-large waves-effect waves-light green" ng-click="addNewTask()"><i class="material-icons">add</i></a>
 </div>
+
 
 <!-- TODO: Directive to implements the modal dialog -->
 <script type="text/ng-template" id="dialog.tmpl.html">
     <md-dialog aria-label="Autocomplete Dialog Example" ng-cloak>
       <md-toolbar>
         <div class="md-toolbar-tools">
-          <h2>{{ title }} Prioridade de Tarefa</h2>
+          <h2>{{ title }} Tarefa</h2>
           <span flex></span>
           <md-button class="md-icon-button" ng-click="cancel()">
             <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
@@ -52,18 +95,31 @@
             <form class="col s12">
               <div class="row">
                 <div class="input-field col s6">
-                  <input id="name" type="text" class="validate active"  ng-model="priority.name">
-                  <label for="name">Nome da prioridade</label>
+                  <input id="name" type="text" class="validate active"  ng-model="task.name">
+                  <label for="name">Nome da tarefa</label>
                 </div>
                 <div class="input-field col s6">
-                  <input id="order" type="number" class="validate active" step="1" min="0"  ng-model="priority.order"> 
-                  <label for="order">Grau de importiancia</label>
+                  <md-autocomplete
+                          md-selected-item="task.priority"
+                          md-search-text="searchText"
+                          md-items="priority in priorities"
+                          md-item-text="priority.name"
+                          md-min-length="0"
+                          placeholder="Prioridade da tarefa">
+                        <md-item-template>
+                            <span md-highlight-text="searchText" md-highlight-flags="^i">{{priority.name}}</span>
+                        </md-item-template>
+                  </md-autocomplete>
+                  </div>
+                  <div class="input-field col s12">
+                  <input id="description" type="text" class="validate active"   ng-model="task.description"> 
+                  <label for="description">Descrição</label>
                 </div>
-                 <div class="input-field col s1 ">
+                 <div class="input-field col s8 ">
 
-                    <a class="waves-effect waves-light btn" ng-if="title == 'Nova'" ng-click="savePriority(priority)">Salvar</a>
+                    <a class="waves-effect waves-light btn" ng-if="title == 'Nova'" ng-click="saveTask(task)">Salvar</a>
 
-                    <a class="waves-effect waves-light btn blue" ng-if="title == 'Editar'" ng-click="updatePriority(priority)">Atualizar</a>
+                    <a class="waves-effect waves-light btn blue" ng-if="title == 'Editar'" ng-click="updateTask(task)">Atualizar</a>
                 </div>
               </div>
             </form>
@@ -72,4 +128,5 @@
     </md-dialog-content>
     </md-dialog>
 </script>
+
 
