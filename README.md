@@ -45,6 +45,7 @@ Or fell free to connect with database with IDE and run the file in
 ---------------------------------------
 The Api is running in PHP with the Micro Framework [Slim Framework](https://www.slimframework.com/docs/). Fell free to explore his struture in folder:
 - ./todo-manager/app/api
+
 Install the dependencies of the API, go to this folder and execute the commands below:
 ```sh
 $ composer install
