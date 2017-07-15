@@ -72,8 +72,9 @@ $app->group('/api/v1/task', function () use ($app) {
     })->setName('insert-task');
 
     // Route to update a task by id
-    $this->put('/update', function ($request, $response, $args) use ($taskController){   
+    $this->put('/update/{id:[0-9]+}', function ($request, $response, $args) use ($taskController){   
         $data = $request->getParsedBody();
+        
         return helper::jsonResponse($response, array('status' => true, 'data' => $taskController->update($data['id'], $data['name'], $data['description'], $data['priority']['id']), 'msg' => 'Prioridade atualizada.') );
 
     })->setName('update-task');

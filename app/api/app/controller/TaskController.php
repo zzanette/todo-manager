@@ -68,7 +68,7 @@ class TaskController {
 	}
 
 	public function update($id, $name, $description, $id_priority){
-		return Task::where('id', $id)->update(['name' => $name, 'description' => $description, 'id_priority', $id_priority]);
+		return Task::where('id', $id)->update(['name' => $name, 'description' => $description, 'id_priority' => $id_priority]);
 	}
 
 	
